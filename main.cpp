@@ -36,12 +36,12 @@ int main(int argc, char **argv) {
   // Iterate over the JSON array
   for (const auto &item : json_data.get_array()) {
 
-    std::string ord_id{item["OrdId"].get_string().value()};
-    std::string sec_id{item["SecId"].get_string().value()};
-    std::string transaction_type{item["TransactionType"].get_string().value()};
-    std::string amount{item["Amount"].get_string().value()};
-    std::string user{item["User"].get_string().value()};
-    std::string company{item["Company"].get_string().value()};
+    std::string ord_id{item["order_id"].get_string().value()};
+    std::string sec_id{item["security_id"].get_string().value()};
+    std::string transaction_type{item["side"].get_string().value()};
+    std::string amount{item["quantity"].get_string().value()};
+    std::string user{item["user"].get_string().value()};
+    std::string company{item["company"].get_string().value()};
     cache.addOrder(Order{ord_id, sec_id, transaction_type,
                          static_cast<unsigned>(std::atoll(amount.c_str())),
                          user, company});

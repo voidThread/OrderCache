@@ -11,12 +11,12 @@ def generate_random_data(num_records):
         user = f"User{random.randint(1, 20)}"
         company = f"Company{random.randint(1, 3)}"
         record = {
-            "OrdId": ord_id,
-            "SecId": sec_id,
-            "TransactionType": transaction_type,
-            "Amount": str(amount),  # Converting to string to handle large numbers
-            "User": user,
-            "Company": company
+            "order_id": ord_id,
+            "security_id": sec_id,
+            "side": transaction_type,
+            "quantity": str(amount),  # Converting to string to handle large numbers
+            "user": user,
+            "company": company
         }
         records.append(record)
     return records
