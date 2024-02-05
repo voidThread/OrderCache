@@ -226,7 +226,6 @@ public:
 
   unsigned int
   getMatchingSizeForSecurity(const std::string &securityId) override {
-    std::unique_lock<std::shared_mutex> lock(mutex);
     using quantity = unsigned;
     using company = std::string;
     using short_order = std::pair<quantity, company>;
@@ -236,6 +235,7 @@ public:
 
     auto split_orders = [&](auto &sales, auto &purchases) {
       // split orders to sales and purchases
+      std::unique_lock<std::shared_mutex> lock(mutex);
       try {
         for (const auto &order : m_ordersBySecurity.at(securityId)) {
           if (!to_lower(order->side()).compare(sell_string)) {
@@ -305,9 +305,6 @@ public:
           bool sell_is_bigger{sell_quantity > buy_quantity};
           long match = sell_is_bigger ? sell_quantity - buy_quantity
                                       : buy_quantity - sell_quantity;
-          if (match < 0) {
-            continue;
-          }
           if (sell_is_bigger) {
             accumulator += buy_quantity;
             sell_quantity = match;
